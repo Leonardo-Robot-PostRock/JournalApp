@@ -1,5 +1,5 @@
 import { Box, Toolbar } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, SideBar } from '../components';
 
 const drawerWidth = 240;
