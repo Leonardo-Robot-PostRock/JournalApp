@@ -1,27 +1,9 @@
 import React from 'react';
 
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
-import { Grid, IconButton, Toolbar, Typography, styled } from '@mui/material';
-import MuiAppBar from '@mui/material/AppBar';
+import { Grid, IconButton, Toolbar, Typography } from '@mui/material';
 
-const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-	transition: theme.transitions.create(['margin', 'width'], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	...(open && {
-		width: `calc(100% - ${drawerWidth}px)`,
-		marginLeft: `${drawerWidth}px`,
-		transition: theme.transitions.create(['margin', 'width'], {
-			easing: theme.transitions.easing.easeOut,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	}),
-}));
+import { AppBar } from '../styled-components/AppBar';
 
 export const Navbar = ({ open, setOpen }) => {
 	const handleDrawerOpen = () => {
@@ -44,10 +26,11 @@ export const Navbar = ({ open, setOpen }) => {
 				<Grid
 					container
 					direction='row'
-					justifyContent='space-between'
+                    flexWrap="nowrap"
+                    justifyContent='space-between'
 					alignItems='center'
 				>
-					<Typography variant='h6' noWrap component='div'>
+					<Typography variant='h6' noWrap flexShrink={0} component='div'>
 						JournalApp
 					</Typography>
 					<IconButton color='error'>
