@@ -1,10 +1,5 @@
 import React from 'react';
 
-import { TurnedInNot } from '@mui/icons-material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { styled, useTheme } from '@mui/material/styles';
-
 import {
 	Box,
 	Divider,
@@ -20,21 +15,19 @@ import {
 	Typography,
 } from '@mui/material';
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
-	...theme.mixins.toolbar,
-	justifyContent: 'flex-end',
-}));
+import { TurnedInNot } from '@mui/icons-material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+import { useTheme } from '@mui/material/styles';
+
+import { DrawerHeader } from '../styled-components/DrawerHeader';
 
 export const SideBar = ({ drawerWidth, open, setOpen }) => {
 	const theme = useTheme();
 
 	const handleDrawerClose = () => {
 		setOpen(false);
-		console.log('cerrando');
 	};
 
 	return (
