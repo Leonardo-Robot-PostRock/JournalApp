@@ -12,10 +12,14 @@ export const NoteView = () => {
 			direction='row'
 			justifyContent='space-between'
 			alignItems='center'
-			sx={{ mb: 1 }}
+			sx={{
+				mb: 1,
+				width: { xs: '100%', md: '70%' },
+				margin: { md: '0 auto' },
+			}}
 		>
 			<Grid item>
-				<Typography fontSize={39} fontWeight='light'>
+				<Typography fontSize={30} fontWeight='light'>
 					28 de Agosto, 2023
 				</Typography>
 			</Grid>
@@ -25,7 +29,7 @@ export const NoteView = () => {
 					Guardar
 				</Button>
 			</Grid>
-			<Grid>
+			<Grid container>
 				<TextField
 					type='text'
 					variant='filled'
@@ -44,8 +48,8 @@ export const NoteView = () => {
 					minRows={5}
 				/>
 			</Grid>
-            <ImageGallery/>
 
+			<ImageGallery />
 		</Grid>
 	);
 };
