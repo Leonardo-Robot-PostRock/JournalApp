@@ -5,6 +5,7 @@ import { JournalLayout } from '../layout/JournalLayout';
 
 import { Main } from '../styled-components/Main';
 import { NothingSelectedView } from '../views/NothingSelectedView';
+import { NoteView } from '../views/NoteView';
 
 export const JournalPage = () => {
 	const [open, setOpen] = useState(false);
@@ -13,7 +14,8 @@ export const JournalPage = () => {
 		<>
 			<Main open={open}>
 				<JournalLayout open={open} setOpen={setOpen}>
-					<NothingSelectedView />
+					{/* <NothingSelectedView /> */}
+					<NoteView />
 				</JournalLayout>
 			</Main>
 		</>
