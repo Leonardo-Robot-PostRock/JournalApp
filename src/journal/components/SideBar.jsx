@@ -1,87 +1,45 @@
 import React from 'react';
 
-import {
-	Box,
-	Divider,
-	Drawer,
-	Grid,
-	IconButton,
-	List,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Toolbar,
-	Typography,
-} from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 
-import { TurnedInNot } from '@mui/icons-material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { drawer } from '../mui-template/drawer';
 
-import { useTheme } from '@mui/material/styles';
-
-import { DrawerHeader } from '../styled-components/DrawerHeader';
-
-export const SideBar = ({ drawerWidth, open, setOpen }) => {
-	const theme = useTheme();
-
-	const handleDrawerClose = () => {
-		setOpen(false);
-	};
-
+export const SideBar = ({
+	drawerWidth,
+	mobileOpen,
+	handleDrawerToggle,
+	container,
+}) => {
 	return (
 		<Box
 			component='nav'
 			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			aria-label='mailbox folders'
 		>
 			<Drawer
-				anchor='left'
-				variant='persistent'
-				open={open}
+				container={container}
+				variant='temporary'
+				open={mobileOpen}
+				onClose={handleDrawerToggle}
+				ModalProps={{
+					keepMounted: true, // Better open performance on mobile.
+				}}
 				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						width: drawerWidth,
-						boxSizing: 'border-box',
-					},
+					display: { xs: 'block', sm: 'none' },
+					'& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
 				}}
 			>
-				<DrawerHeader>
-					<Toolbar>
-						<Typography variant='h6' noWrap component='div'>
-							Leonardo Puebla
-						</Typography>
-					</Toolbar>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === 'ltr' ? (
-							<ChevronLeftIcon />
-						) : (
-							<ChevronRightIcon />
-						)}
-					</IconButton>
-				</DrawerHeader>
-				<Divider />
-				<List>
-					{['Enero', 'Febrero', 'Marzo', 'Abril'].map((text) => (
-						<ListItem key={text} disablePadding>
-							<ListItemButton>
-								<ListItemIcon>
-									<TurnedInNot />
-								</ListItemIcon>
-								<Grid container>
-									<ListItemText primary={text} />
-									<ListItemText
-										secondary={
-											'Fugiat adipisicing exercitation ullamco nostrud.'
-										}
-									/>
-								</Grid>
-							</ListItemButton>
-						</ListItem>
-					))}
-				</List>
+				{drawer}
+			</Drawer>
+			<Drawer
+				variant='permanent'
+				sx={{
+					display: { xs: 'none', sm: 'block' },
+					'& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+				}}
+				open
+			>
+				{drawer}
 			</Drawer>
 		</Box>
 	);
