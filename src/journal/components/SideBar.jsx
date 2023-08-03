@@ -40,15 +40,20 @@ export const SideBar = ({ drawerWidth, open, setOpen }) => {
 				variant='persistent'
 				open={open}
 				sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                      width: drawerWidth,
-                      boxSizing: 'border-box',
-                    },
-                  }}
+					width: drawerWidth,
+					flexShrink: 0,
+					'& .MuiDrawer-paper': {
+						width: drawerWidth,
+						boxSizing: 'border-box',
+					},
+				}}
 			>
 				<DrawerHeader>
+					<Toolbar>
+						<Typography variant='h6' noWrap component='div'>
+							Leonardo Puebla
+						</Typography>
+					</Toolbar>
 					<IconButton onClick={handleDrawerClose}>
 						{theme.direction === 'ltr' ? (
 							<ChevronLeftIcon />
@@ -58,13 +63,6 @@ export const SideBar = ({ drawerWidth, open, setOpen }) => {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
-				<Toolbar>
-					<Typography variant='h6' noWrap component='div'>
-						Leonardo Puebla
-					</Typography>
-				</Toolbar>
-				<Divider />
-
 				<List>
 					{['Enero', 'Febrero', 'Marzo', 'Abril'].map((text) => (
 						<ListItem key={text} disablePadding>
