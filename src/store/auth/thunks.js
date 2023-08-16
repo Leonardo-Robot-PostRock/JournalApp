@@ -1,5 +1,5 @@
 import { signInWithGoogle } from '../../firebase/providers';
-import { checkingCredentials } from './authSlice';
+import { checkingCredentials, login, logout } from './authSlice';
 
 export const checkingAuthentication = () => {
 	// Podría suprimirse esta funcion y enviar sólo la acción del reducer dado que es una tarea síncrona la que se ejecuta
@@ -13,5 +13,12 @@ export const startGoogleSignIn = () => {
 		dispatch(checkingCredentials());
 		const result = await signInWithGoogle();
 		console.log({ result });
+
+		if (!result.ok) {
+			dispatch(logout(result.errorMessage));
+			return;
+		}
+
+		dispatch(login(result));
 	};
 };
