@@ -16,7 +16,10 @@ const passwordFormat =
 	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
 const formValidations = {
-	email: [(value) => mailFormart.test(value), 'El correo debe tener un @'],
+	email: [
+		(value) => mailFormart.test(value),
+		'Por favor ingresa una dirección de correo válida',
+	],
 	password: [
 		(value) => passwordFormat.test(value),
 		'El password debe de tener entre 8 a 15 caracteres que contenga almenos una letra minúscula, una mayúscula, un dígito númerico y un caracter especial',
