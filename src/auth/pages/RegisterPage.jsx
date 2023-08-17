@@ -11,13 +11,17 @@ const formData = {
 	displayName: 'Leonardo Puebla',
 };
 
-const formValidations = () => {
-	email: [(value) => value.includes('@'), 'El correo debe tener un @'];
+const mailFormart = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const passwordFormat =
+	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+
+const formValidations = {
+	email: [(value) => mailFormart.test(value), 'El correo debe tener un @'],
 	password: [
-		(value) => value.length >= 6,
-		'El password debe de tener más de 6 letras',
-	];
-	displayName: [(value) => value.length >= 1, 'El nombre debe ser obligatorio'];
+		(value) => passwordFormat.test(value),
+		'El password debe de tener entre 8 a 15 caracteres que contenga almenos una letra minúscula, una mayúscula, un dígito númerico y un caracter especial',
+	],
+	displayName: [(value) => value.length >= 1, 'El nombre debe ser obligatorio'],
 };
 
 export const RegisterPage = () => {
