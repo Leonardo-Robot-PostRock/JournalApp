@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
@@ -6,9 +6,9 @@ import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
 
 const formData = {
-	email: 'leonardo@google.com',
-	password: '123456',
-	displayName: 'Leonardo Puebla',
+	email: '',
+	password: '',
+	displayName: '',
 };
 
 const mailFormart = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -28,6 +28,8 @@ const formValidations = {
 };
 
 export const RegisterPage = () => {
+	const [formSubmitted, setFormSubmitted] = useState(false);
+
 	const {
 		displayName,
 		email,
@@ -42,7 +44,7 @@ export const RegisterPage = () => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-		console.log(formState);
+		setFormSubmitted(true);
 	};
 
 	return (
@@ -58,9 +60,9 @@ export const RegisterPage = () => {
 							name='displayName'
 							value={displayName}
 							onChange={onInputChange}
-							error={!displayName}
-							helperText={displayName}
-						></TextField>
+							error={!!displayNameValid && formSubmitted}
+							helperText={displayNameValid && formSubmitted && displayNameValid}
+						/>
 					</Grid>
 					<Grid item xs={12} sx={{ mt: 2 }}>
 						<TextField
@@ -71,9 +73,9 @@ export const RegisterPage = () => {
 							name='email'
 							value={email}
 							onChange={onInputChange}
-							error={false}
-							helperText='El nombre es obligatorio'
-						></TextField>
+							error={!!emailValid && formSubmitted}
+							helperText={emailValid && formSubmitted && emailValid}
+						/>
 					</Grid>
 
 					<Grid item xs={12} sx={{ mt: 2 }}>
@@ -85,7 +87,9 @@ export const RegisterPage = () => {
 							name='password'
 							value={password}
 							onChange={onInputChange}
-						></TextField>
+							error={!!passwordValid && formSubmitted}
+							helperText={passwordValid}
+						/>
 					</Grid>
 
 					<Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
