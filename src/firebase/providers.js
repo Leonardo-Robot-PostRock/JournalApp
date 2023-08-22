@@ -6,6 +6,8 @@ import {
 } from 'firebase/auth';
 import { FirebaseAuth } from './config';
 
+import { mapAuthCodeToMessage } from './mapAuthCodeToMessage';
+
 const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
@@ -62,7 +64,6 @@ export const registerUserWithEmailPassword = async ({
 			displayName,
 		};
 	} catch (error) {
-		console.log(error);
-		return { ok: false, errorMessage: error.message };
+		return { ok: false, errorMessage: mapAuthCodeToMessage(error.code) };
 	}
 };
