@@ -50,7 +50,7 @@ export const registerUserWithEmailPassword = async ({
 		);
 		const { uid, photoURL } = resp.user;
 
-		updateProfile(FirebaseAuth.currentUser, {
+		await updateProfile(FirebaseAuth.currentUser, {
 			displayName,
 		});
 
