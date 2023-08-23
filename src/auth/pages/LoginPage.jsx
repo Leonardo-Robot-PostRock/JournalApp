@@ -7,7 +7,7 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 
 import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
+import { startGoogleSignIn, startLoginWithEmailAndPassword } from '../../store/auth';
 
 export const LoginPage = () => {
 	const { status } = useSelector((state) => state.auth);
@@ -24,7 +24,7 @@ export const LoginPage = () => {
 	const onSubmit = (event) => {
 		event.preventDefault();
 
-		dispatch(checkingAuthentication());
+		dispatch(startLoginWithEmailAndPassword({email, password}));
 	};
 
 	const onGoogleSignIn = () => {
