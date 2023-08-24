@@ -1,15 +1,9 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Box, Drawer } from '@mui/material';
+import { CustomDrawer } from '../mui-template';
 
-import { drawer } from '../mui-template/drawer';
-
-export const SideBar = ({
-	drawerWidth,
-	mobileOpen,
-	handleDrawerToggle,
-	container,
-}) => {
+export const SideBar = ({ drawerWidth, mobileOpen, handleDrawerToggle, container }) => {
 	return (
 		<Box
 			component='nav'
@@ -29,7 +23,7 @@ export const SideBar = ({
 					'& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
 				}}
 			>
-				{drawer}
+				<CustomDrawer />
 			</Drawer>
 			<Drawer
 				variant='permanent'
@@ -39,7 +33,7 @@ export const SideBar = ({
 				}}
 				open
 			>
-				{drawer}
+				<CustomDrawer />
 			</Drawer>
 		</Box>
 	);
