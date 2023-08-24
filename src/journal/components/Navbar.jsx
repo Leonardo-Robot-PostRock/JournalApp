@@ -1,17 +1,17 @@
-import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
-import {
-	AppBar,
-	Box,
-	CssBaseline,
-	Grid,
-	IconButton,
-	Toolbar,
-	Typography,
-} from '@mui/material';
+import { AppBar, Box, CssBaseline, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+
+import { startLogout } from '../../store/auth';
 
 export const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
+	const dispatch = useDispatch();
+
+	const onLogout = () => {
+		dispatch(startLogout());
+	};
+
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -43,7 +43,7 @@ export const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
 						<Typography variant='h6' noWrap flexShrink={0} component='div'>
 							JournalApp
 						</Typography>
-						<IconButton color='error'>
+						<IconButton color='error' onClick={onLogout}>
 							<LogoutOutlined />
 						</IconButton>
 					</Grid>
