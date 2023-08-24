@@ -87,6 +87,9 @@ export function mapAuthCodeToMessage(authCode) {
 		case 'auth/invalid-password':
 			return 'Contraseña inválida.';
 			break;
+		case 'auth/wrong-password':
+			return 'Contraseña inválida.';
+			break;
 		case 'auth/invalid-password-hash':
 			return 'Hash de contraseña inválido.';
 			break;
