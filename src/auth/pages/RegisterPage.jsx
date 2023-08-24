@@ -2,14 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-	Alert,
-	Button,
-	Grid,
-	Link,
-	TextField,
-	Typography,
-} from '@mui/material';
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../Layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { startCreatingUserWithEmailPassword } from '../../store/auth';
@@ -21,14 +14,10 @@ const formData = {
 };
 
 const mailFormart = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const passwordFormat =
-	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+const passwordFormat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
 const formValidations = {
-	email: [
-		(value) => mailFormart.test(value),
-		'Por favor ingresa una dirección de correo válida',
-	],
+	email: [(value) => mailFormart.test(value), 'Por favor ingresa una dirección de correo válida'],
 	password: [
 		(value) => passwordFormat.test(value),
 		'El password debe de tener entre 8 a 15 caracteres que contenga almenos una letra minúscula, una mayúscula, un dígito númerico y un caracter especial',
@@ -42,10 +31,7 @@ export const RegisterPage = () => {
 
 	const { status, errorMessage } = useSelector((state) => state.auth);
 
-	const isCheckingAuthentication = useMemo(
-		() => status === 'checking',
-		[status]
-	);
+	const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
 
 	const {
 		displayName,
@@ -69,7 +55,7 @@ export const RegisterPage = () => {
 
 	return (
 		<AuthLayout title='Crear cuenta'>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={onSubmit} className='animate__animated animate__fadeIn animate__faster'>
 				<Grid container>
 					<Grid item xs={12} sx={{ mt: 2 }}>
 						<TextField
