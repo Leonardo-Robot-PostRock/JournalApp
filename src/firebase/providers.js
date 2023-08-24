@@ -38,19 +38,9 @@ export const signInWithGoogle = async () => {
 	}
 };
 
-export const registerUserWithEmailPassword = async ({
-	email,
-	password,
-	displayName,
-}) => {
+export const registerUserWithEmailPassword = async ({ email, password, displayName }) => {
 	try {
-		console.log({ email, password, displayName });
-
-		const resp = await createUserWithEmailAndPassword(
-			FirebaseAuth,
-			email,
-			password
-		);
+		const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
 		const { uid, photoURL } = resp.user;
 
 		await updateProfile(FirebaseAuth.currentUser, {
@@ -71,11 +61,7 @@ export const registerUserWithEmailPassword = async ({
 
 export const loginWithEmailPassword = async ({ email, password }) => {
 	try {
-		const resp = await signInWithEmailAndPassword(
-			FirebaseAuth,
-			email,
-			password
-		);
+		const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
 
 		const { uid, photoURL, displayName } = resp.user;
 
@@ -83,4 +69,8 @@ export const loginWithEmailPassword = async ({ email, password }) => {
 	} catch (error) {
 		return { ok: false, errorMessage: mapAuthCodeToMessage(error.code) };
 	}
+};
+
+export const logoutFirebase = async () => {
+	return await FirebaseAuth.signOut();
 };
