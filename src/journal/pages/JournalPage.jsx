@@ -11,8 +11,7 @@ import { AddOutlined } from '@mui/icons-material';
 export const JournalPage = (props) => {
 	const { window } = props;
 
-	const container =
-		window !== undefined ? () => window().document.body : undefined;
+	const container = window !== undefined ? () => window().document.body : undefined;
 
 	return (
 		<>

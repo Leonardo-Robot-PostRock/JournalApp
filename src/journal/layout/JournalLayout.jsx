@@ -12,11 +12,8 @@ export const JournalLayout = ({ children, container }) => {
 	};
 
 	return (
-		<Box sx={{ display: 'flex' }}>
-			<Navbar
-				drawerWidth={drawerWidth}
-				handleDrawerToggle={handleDrawerToggle}
-			/>
+		<Box sx={{ display: 'flex' }} className='animate__animated animate__fadeIn animate__faster'>
+			<Navbar drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle} />
 			<SideBar
 				drawerWidth={drawerWidth}
 				container={container}
