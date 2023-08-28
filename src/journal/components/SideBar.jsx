@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { Box, Drawer } from '@mui/material';
-import { CustomDrawer } from '../mui-template';
+import { CustomDrawer } from '../../ui';
 
 export const SideBar = ({ drawerWidth, mobileOpen, handleDrawerToggle, container }) => {
 	return (
