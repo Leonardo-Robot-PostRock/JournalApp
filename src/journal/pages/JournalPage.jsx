@@ -1,5 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, IconButton } from '@mui/material';
 import { JournalLayout } from '../layout/JournalLayout';
@@ -15,10 +17,13 @@ export const JournalPage = (props) => {
 	const container = window !== undefined ? () => window().document.body : undefined;
 
 	const dispatch = useDispatch();
+	const { isSaving } = useSelector((state) => state.journal);
 
 	const onClickNewNote = () => {
 		dispatch(startNewNote());
 	};
+
+	const isCreating = useMemo(() => isSaving === true, [isSaving]);
 
 	return (
 		<>
@@ -28,6 +33,7 @@ export const JournalPage = (props) => {
 					<NoteView />
 
 					<IconButton
+						disabled={isCreating}
 						onClick={onClickNewNote}
 						size='large'
 						sx={{
