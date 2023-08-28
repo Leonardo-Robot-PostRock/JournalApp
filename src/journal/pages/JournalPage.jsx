@@ -17,7 +17,7 @@ export const JournalPage = (props) => {
 	const container = window !== undefined ? () => window().document.body : undefined;
 
 	const dispatch = useDispatch();
-	const { isSaving } = useSelector((state) => state.journal);
+	const { isSaving, active: note } = useSelector((state) => state.journal);
 
 	const onClickNewNote = () => {
 		dispatch(startNewNote());
@@ -29,8 +29,7 @@ export const JournalPage = (props) => {
 		<>
 			<Box component='main'>
 				<JournalLayout container={container}>
-					{/* <NothingSelectedView /> */}
-					<NoteView />
+					{!!note ? <NoteView /> : <NothingSelectedView />}
 
 					<IconButton
 						disabled={isCreating}
