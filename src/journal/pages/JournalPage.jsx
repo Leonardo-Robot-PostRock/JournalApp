@@ -1,4 +1,4 @@
-import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Box, IconButton } from '@mui/material';
@@ -7,11 +7,18 @@ import { JournalLayout } from '../layout/JournalLayout';
 import { NothingSelectedView } from '../views/NothingSelectedView';
 import { NoteView } from '../views/NoteView';
 import { AddOutlined } from '@mui/icons-material';
+import { startNewNote } from '../../store/journal/thunks';
 
 export const JournalPage = (props) => {
 	const { window } = props;
 
 	const container = window !== undefined ? () => window().document.body : undefined;
+
+	const dispatch = useDispatch();
+
+	const onClickNewNote = () => {
+		dispatch(startNewNote());
+	};
 
 	return (
 		<>
@@ -21,6 +28,7 @@ export const JournalPage = (props) => {
 					<NoteView />
 
 					<IconButton
+						onClick={onClickNewNote}
 						size='large'
 						sx={{
 							color: 'white',
