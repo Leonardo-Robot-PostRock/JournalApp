@@ -1,5 +1,5 @@
 import { Box, Drawer } from '@mui/material';
-import { CustomDrawer } from '../../ui';
+import { NoteCollectionDrawer } from '../../ui';
 
 export const SideBar = ({ drawerWidth, mobileOpen, handleDrawerToggle, container }) => {
 	return (
@@ -21,7 +21,7 @@ export const SideBar = ({ drawerWidth, mobileOpen, handleDrawerToggle, container
 					'& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
 				}}
 			>
-				<CustomDrawer />
+				<NoteCollectionDrawer />
 			</Drawer>
 			<Drawer
 				variant='permanent'
@@ -31,7 +31,7 @@ export const SideBar = ({ drawerWidth, mobileOpen, handleDrawerToggle, container
 				}}
 				open
 			>
-				<CustomDrawer />
+				<NoteCollectionDrawer />
 			</Drawer>
 		</Box>
 	);
