@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-
 import { Box, Drawer } from '@mui/material';
 import { CustomDrawer } from '../../ui';
 
