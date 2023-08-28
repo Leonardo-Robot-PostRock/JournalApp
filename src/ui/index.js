@@ -1,2 +1,2 @@
 export * from './components/CheckingAuth';
-export * from './components/CustomDrawer';
+export * from './components/NoteCollectionDrawer';
