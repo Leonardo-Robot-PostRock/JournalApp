@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, IconButton } from '@mui/material';
 import { JournalLayout } from '../layout/JournalLayout';
 
-import { NothingSelectedView } from '../views/NothingSelectedView';
-import { NoteView } from '../views/NoteView';
+import { NothingSelectedView } from '../views';
+import { NoteView } from '../views';
 import { AddOutlined } from '@mui/icons-material';
 import { startNewNote } from '../../store/journal/thunks';
 
