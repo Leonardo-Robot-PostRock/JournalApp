@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Toolbar } from '@mui/material';
 
 import { Navbar, SideBar } from '../components';
-import useResponsiveDrawerWidth from '../../hooks';
+import { useResponsiveDrawerWidth } from '../../hooks';
 
 // const drawerWidth = 240;
 
