@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useResponsiveDrawerWidth = () => {
+export const useResponsiveDrawerWidth = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240); // Initial value
 
 	useEffect(() => {
@@ -37,5 +37,3 @@ const useResponsiveDrawerWidth = () => {
 
 	return drawerWidth;
 };
-
-export default useResponsiveDrawerWidth;
