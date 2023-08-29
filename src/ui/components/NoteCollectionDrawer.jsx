@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { Divider, List, Toolbar, Typography } from '@mui/material';
-import { SideBarItem } from './SideBarItem';
+import { SideBarItem } from './';
 
 export const NoteCollectionDrawer = () => {
 	const { displayName } = useSelector((state) => state.auth);
