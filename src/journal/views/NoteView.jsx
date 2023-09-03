@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
+import '../styles/custom-target.css';
 import { ImageGallery } from '../components/ImageGallery';
 
 import { useForm } from '../../hooks';
@@ -12,7 +15,11 @@ import { startSaveNote } from '../../store/journal/thunks';
 
 export const NoteView = () => {
 	const dispatch = useDispatch();
-	const { active: note } = useSelector((state) => state.journal);
+	const {
+		active: note,
+		messageSaved,
+		isSaving,
+	} = useSelector((state) => state.journal);
 
 	const { body, title, onInputChange, formState, date } = useForm(note);
 
@@ -26,8 +33,25 @@ export const NoteView = () => {
 		dispatch(setActiveNote(formState));
 	}, [formState]);
 
+	useEffect(() => {
+		if (messageSaved.length > 0) {
+			// Swal.fire('Nota actualizada', messageSaved, 'success');
+			Swal.fire({
+				title: 'Nota actualizada',
+				target: '#custom-target',
+				text: messageSaved,
+				toast: true,
+				customClass: {
+					container: 'position-absolute',
+				},
+				position: 'center',
+				icon: 'success',
+			});
+		}
+	}, [messageSaved]);
+
 	const onSaveNote = () => {
-		dispatch(startSaveNote())
+		dispatch(startSaveNote());
 	};
 
 	return (
@@ -35,6 +59,7 @@ export const NoteView = () => {
 			className='animate__animated animate__fadeIn animate__faster'
 			container
 			direction='row'
+			position='relative'
 			justifyContent='space-between'
 			alignItems='center'
 			sx={{
@@ -43,13 +68,19 @@ export const NoteView = () => {
 				margin: { md: '0 auto' },
 			}}
 		>
+			{!isSaving ? <div id='custom-target'></div> : ''}
 			<Grid item>
 				<Typography fontSize={30} fontWeight='light'>
 					{dateString}
 				</Typography>
 			</Grid>
 			<Grid item>
-				<Button color='primary' sx={{ padding: 2 }} onClick={onSaveNote}>
+				<Button
+					disabled={isSaving}
+					color='primary'
+					sx={{ padding: 2 }}
+					onClick={onSaveNote}
+				>
 					<SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
 					Guardar
 				</Button>
