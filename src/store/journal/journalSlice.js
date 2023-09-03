@@ -41,7 +41,7 @@ export const journalSlice = createSlice({
 				}
 				return note;
 			});
-			//Todo: mostrar mendaje de actualización
+			state.messageSaved = `${action.payload.title}, actualizada correctamente`;
 		},
 		deleteNoteById: (state, action) => {},
 	},
