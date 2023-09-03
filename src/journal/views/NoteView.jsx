@@ -5,8 +5,8 @@ import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
-
 import '../styles/custom-target.css';
+
 import { ImageGallery } from '../components/ImageGallery';
 
 import { useForm } from '../../hooks';
@@ -44,7 +44,7 @@ export const NoteView = () => {
 				customClass: {
 					container: 'position-absolute',
 				},
-				position: 'center',
+				position: 'top-center',
 				icon: 'success',
 			});
 		}
@@ -68,12 +68,12 @@ export const NoteView = () => {
 				margin: { md: '0 auto' },
 			}}
 		>
-			{!isSaving ? <div id='custom-target'></div> : ''}
 			<Grid item>
 				<Typography fontSize={30} fontWeight='light'>
 					{dateString}
 				</Typography>
 			</Grid>
+			{isSaving ? <div id='custom-target'></div> : ''}
 			<Grid item>
 				<Button
 					disabled={isSaving}
