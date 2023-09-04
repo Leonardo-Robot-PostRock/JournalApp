@@ -14,7 +14,8 @@ import { startNewNote } from '../../store/journal/thunks';
 export const JournalPage = (props) => {
 	const { window } = props;
 
-	const container = window !== undefined ? () => window().document.body : undefined;
+	const container =
+		window !== undefined ? () => window().document.body : undefined;
 
 	const dispatch = useDispatch();
 	const { isSaving, active: note } = useSelector((state) => state.journal);
@@ -39,13 +40,14 @@ export const JournalPage = (props) => {
 							color: 'white',
 							backgroundColor: 'error.main',
 							':hover': { backgroundColor: 'error.main', opacity: 0.9 },
-							position: 'fixed',
-							bottom: 50,
-							right: 50,
+							position: { xs: 'relative', md: 'fixed' },
+							bottom: { xs: '10px' },
+							top: { lg: '10' },
+							right: 0,
 							button: 50,
 						}}
 					>
-						<AddOutlined sx={{ fontSize: 30 }} />
+						<AddOutlined sx={{ fontSize: { xs: '20px', md: '30px' } }} />
 					</IconButton>
 				</JournalLayout>
 			</Box>
