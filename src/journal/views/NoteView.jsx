@@ -11,7 +11,7 @@ import { ImageGallery } from '../components/ImageGallery';
 
 import { useForm } from '../../hooks';
 import { setActiveNote } from '../../store/journal/journalSlice';
-import { startSaveNote } from '../../store/journal/thunks';
+import { startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
 
 export const NoteView = () => {
 	const dispatch = useDispatch();
@@ -58,7 +58,6 @@ export const NoteView = () => {
 
 	const onFileInputChange = ({ target }) => {
 		if (target.files === 0) return;
-		console.log('subiendo archivos');
 		dispatch(startUploadingFiles(target.files));
 	};
 
