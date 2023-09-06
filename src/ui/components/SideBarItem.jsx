@@ -2,7 +2,13 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TurnedInNot } from '@mui/icons-material';
-import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {
+	Grid,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+} from '@mui/material';
 
 import { setActiveNote } from '../../store/journal/journalSlice';
 
@@ -11,7 +17,6 @@ export const SideBarItem = ({ title, body, date, id, imageUrls = [] }) => {
 	const dispatch = useDispatch();
 
 	const onActiveNote = () => {
-		console.log(active);
 		dispatch(setActiveNote({ title, body, date, id, imageUrls }));
 	};
 
