@@ -1,3 +1,4 @@
+import { StarRateTwoTone } from '@mui/icons-material';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const journalSlice = createSlice({
@@ -43,16 +44,21 @@ export const journalSlice = createSlice({
 			});
 			state.messageSaved = `${action.payload.title}, actualizada correctamente`;
 		},
+		setPhotosToActiveNote: (state, action) => {
+			state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
+			state.isSaving = false;
+		},
 		deleteNoteById: (state, action) => {},
 	},
 });
 
 export const {
-	savingNewNote,
 	addNewEmptyNote,
+	deleteNoteById,
+	savingNewNote,
 	setActiveNote,
 	setNotes,
+	setPhotosToActiveNote,
 	setSaving,
 	updateNote,
-	deleteNoteById,
 } = journalSlice.actions;
