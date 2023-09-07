@@ -13,7 +13,6 @@ import {
 import { setActiveNote } from '../../store/journal/journalSlice';
 
 export const SideBarItem = ({ title, body, date, id, imageUrls = [] }) => {
-	const { active } = useSelector((state) => state.journal);
 	const dispatch = useDispatch();
 
 	const onActiveNote = () => {
