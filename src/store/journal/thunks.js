@@ -91,6 +91,5 @@ export const startDeletingNote = () => {
 		const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
 		await deleteDoc(docRef);
 		dispatch(deleteNoteById(note.id));
-		console.log({ uid, note });
 	};
 };
