@@ -9,6 +9,9 @@ export const tealBlueTheme = createTheme({
 		secondary: {
 			main: '#388E3C', // Green secondary color (you can replace this with your desired secondary color)
 		},
+		terciary: {
+			main: '#800080'
+		},
 		error: {
 			main: red.A400, // Red error color (you can replace this with your desired red color)
 		},
