@@ -1,3 +1,11 @@
 .box-shadow {
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
+
+.diario-img {
+    height: 500px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: solid #800080 5px;
+}
