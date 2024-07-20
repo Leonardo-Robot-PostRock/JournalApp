@@ -1,5 +1,6 @@
 export const fileUpload = async (file) => {
-	if (!file) throw new Errror('No tenemos ningún archivo a subir');
+	// if (!file) throw new Error('No tenemos ningún archivo a subir');
+	if (!file) return null;
 	const cloudUrl = 'https://api.cloudinary.com/v1_1/colection/upload';
 
 	//Body de la petición https, también visto en POSTMAN
@@ -18,6 +19,7 @@ export const fileUpload = async (file) => {
 
 		return cloudResp.secure_url;
 	} catch (error) {
-		throw new Error(error);
+		// throw new Error(error);
+		if (!file) return null;
 	}
 };
