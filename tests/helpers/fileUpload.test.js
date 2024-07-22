@@ -2,9 +2,9 @@ import { v2 as cloudinary } from 'cloudinary';
 import { fileUpload } from "../../src/helpers/fileUpload";
 
 cloudinary.config({
-    cloud_name: 'colection',
-    api_key: '437671343782376',
-    api_secret: 'eCeY8Hy4UcdNBZ0utS4QR9v8m-U',
+    cloud_name: process.env.VITE_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.VITE_CLOUDINARY_API_KEY,
+    api_secret: process.env.VITE_CLOUDINARY_API_SECRET,
     secure: true
 })
 
@@ -25,7 +25,6 @@ describe('Pruebas en fileUpload', () => {
         const cloudResp = await cloudinary.api.delete_resources(['journal/' + imageId], {
             resource_type: 'image'
         });
-        console.log({ cloudResp });
     })
 
     test('debe de retornal null', async () => {
