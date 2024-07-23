@@ -4,6 +4,7 @@ import { FirebaseDB } from '../../firebase/config';
 
 import {
 	addNewEmptyNote,
+	deleteImage,
 	deleteNoteById,
 	savingNewNote,
 	setActiveNote,
@@ -13,6 +14,10 @@ import {
 	updateNote,
 } from './journalSlice';
 import { fileUpload, loadNotes } from '../../helpers';
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
+console.log(baseUrl)
 
 export const startNewNote = () => {
 	return async (dispatch, getState) => {
@@ -71,15 +76,19 @@ export const startUploadingFiles = (files = []) => {
 		dispatch(setSaving());
 
 		// await fileUpload(files[0]);
-		const fileUploadPromises = [];
-		for (const file of files) {
-			fileUploadPromises.push(fileUpload(file));
+		try {
+			const fileUploadPromises = [];
+			for (const file of files) {
+				fileUploadPromises.push(fileUpload(file));
+			}
+
+			//Disparar Promesas
+			const photosUrls = await Promise.all(fileUploadPromises);
+
+			dispatch(setPhotosToActiveNote(photosUrls));
+		} catch (error) {
+			throw new Error('Error al intentar subir las imagenes');
 		}
-
-		//Disparar Promesas
-		const photosUrls = await Promise.all(fileUploadPromises);
-
-		dispatch(setPhotosToActiveNote(photosUrls));
 	};
 };
 
@@ -92,4 +101,42 @@ export const startDeletingNote = () => {
 		await deleteDoc(docRef);
 		dispatch(deleteNoteById(note.id));
 	};
+};
+
+export const startDeletingImages = (imageUrls) => {
+	return async (dispatch, getState) => {
+		const { uid } = getState().auth;
+		const { active: note } = getState().journal;
+
+		dispatch(setSaving());
+
+		try {
+
+			const publicIds = imageUrls.map(url => extractPublicIdFromUrl(url));
+			await fetch(`${baseUrl}/images/delete`, {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ publicIds })
+			});
+
+			// Update Firestore
+			const updatedImageUrls = note.imageUrls.filter(url => !imageUrls.includes(url));
+			const noteToFireStore = { ...note, imageUrls: updatedImageUrls };
+			const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
+			await setDoc(docRef, noteToFireStore, { merge: true });
+
+			// Update Redux state
+			dispatch(deleteImage(imageUrls));
+			dispatch(setActiveNote({ ...note, imageUrls: updatedImageUrls }))
+		} catch (error) {
+			console.error('Error deleting images:', error);
+		}
+	};
+};
+
+const extractPublicIdFromUrl = (url) => {
+	const parts = url.split('/');
+	const publicIdWithExtension = parts[parts.length - 1];
+	const publicId = publicIdWithExtension.split('.')[0];
+	return publicId;
 };
