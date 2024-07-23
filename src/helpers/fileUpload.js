@@ -1,9 +1,10 @@
-export const fileUpload = async (file) => {
-	// if (!file) throw new Error('No tenemos ningún archivo a subir');
-	if (!file) return null;
-	const cloudUrl = 'https://api.cloudinary.com/v1_1/colection/upload';
 
-	//Body de la petición https, también visto en POSTMAN
+const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
+
+export const fileUpload = async (file) => {
+	if (!file) return null;
+	const cloudUrl = `${baseUrl}/upload`;
+
 	const formData = new FormData();
 	formData.append('upload_preset', 'journal');
 	formData.append('file', file);
