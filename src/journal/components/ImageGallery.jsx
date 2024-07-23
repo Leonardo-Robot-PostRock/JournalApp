@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   ImageList,
@@ -7,14 +7,18 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import { useDispatch } from 'react-redux';
-import { startDeletingImage } from '../../store/journal/thunks';
+import { useDispatch, useSelector } from 'react-redux';
+import { startDeletingImages } from '../../store/journal/thunks';
 
-export const ImageGallery = ({ images }) => {
+export const ImageGallery = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const dispatch = useDispatch();
+  const { active: note } = useSelector((state) => state.journal);
+  const [images, setImages] = useState(note.imageUrls);
 
-  console.log(selectedImages);
+  useEffect(() => {
+    setImages(note.imageUrls);
+  }, [note.imageUrls]);
 
   const handleSelectImage = (image) => {
     setSelectedImages((prev) =>
@@ -25,9 +29,7 @@ export const ImageGallery = ({ images }) => {
   };
 
   const handleDeleteImages = () => {
-    selectedImages.forEach((imageUrls) => {
-      dispatch(startDeletingImage(imageUrls));
-    });
+    dispatch(startDeletingImages(selectedImages));
     setSelectedImages([]);
   };
 
@@ -39,7 +41,11 @@ export const ImageGallery = ({ images }) => {
         rowHeight="auto"
       >
         {images.map((image) => (
-          <ImageListItem key={image}>
+          <ImageListItem
+            key={image}
+            onClick={() => handleSelectImage(image)}
+            sx={{ position: 'relative', cursor: 'pointer' }}
+          >
             <img
               src={`${image}?w=164&h=164&fit=crop&auto=format`}
               srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -49,20 +55,25 @@ export const ImageGallery = ({ images }) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  size="large"
+                  size="medium"
                   checked={selectedImages.includes(image)}
-                  onChange={() => handleSelectImage(image)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectImage(image);
+                  }}
                   sx={{
-                    color: 'white',
+                    color: 'transparent',
                     '&.Mui-checked': {
                       color: '#d1001f',
+                    },
+                    '&:hover': {
+                      backgroundColor: 'transparent',
                     },
                   }}
                 />
               }
               sx={{
                 position: 'absolute',
-                color: 'white',
               }}
             />
           </ImageListItem>
@@ -82,7 +93,7 @@ export const ImageGallery = ({ images }) => {
             },
           }}
         >
-          Eliminar imágenes seleccionadas
+          Eliminar
         </Button>
       )}
     </div>
