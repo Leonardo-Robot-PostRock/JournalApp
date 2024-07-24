@@ -1,4 +1,3 @@
-import { StarRateTwoTone } from '@mui/icons-material';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const journalSlice = createSlice({
@@ -15,12 +14,8 @@ export const journalSlice = createSlice({
 		// 	date: 1234567,
 		// 	imageUrls: [], //https://foto1.jpg, https://foto2.jpg, https://foto3.jpg
 		// },
-		temporaryImageUrls: []
 	},
 	reducers: {
-		savingNewNote: (state) => {
-			state.isSaving = true;
-		},
 		addNewEmptyNote: (state, action) => {
 			state.notes.push(action.payload);
 			state.isSaving = false;
@@ -35,7 +30,6 @@ export const journalSlice = createSlice({
 			state.isSaving = true;
 		},
 		updateNote: (state, action) => {
-			//payload: note
 			state.isSaving = false;
 			state.notes = state.notes.map((note) => {
 				if (note.id === action.payload.id) {
@@ -49,9 +43,6 @@ export const journalSlice = createSlice({
 			state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
 			state.isSaving = false;
 		},
-		setPhotosToActiveNoteTemporary: (state, action) => {
-			state.temporaryImageUrls = action.payload;
-		},
 		clearNotesLogout: (state) => {
 			state.isSaving = false;
 			state.messageSaved = '';
@@ -63,13 +54,11 @@ export const journalSlice = createSlice({
 			state.notes = state.notes.filter((note) => note.id !== action.payload);
 		},
 		deleteImage: (state, action) => {
-			console.log(action.payload);
 			if (state.active) {
-				state.active.imageUrls = state.active.imageUrls.filter((url) => {
-					console.log(url)
-					url !== action.payload
-				});
+				const urlsToDelete = Array.isArray(action.payload) ? action.payload : [action.payload];
+				state.active.imageUrls = state.active.imageUrls.filter(url => !urlsToDelete.includes(url));
 			}
+
 			state.isSaving = false;
 		},
 	},
@@ -78,13 +67,11 @@ export const journalSlice = createSlice({
 export const {
 	addNewEmptyNote,
 	clearNotesLogout,
-	deleteNoteById,
 	deleteImage,
-	savingNewNote,
+	deleteNoteById,
 	setActiveNote,
 	setNotes,
 	setPhotosToActiveNote,
-	setPhotosToActiveNoteTemporary,
 	setSaving,
 	updateNote,
 } = journalSlice.actions;
