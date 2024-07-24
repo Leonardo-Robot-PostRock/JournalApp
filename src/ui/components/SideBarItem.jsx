@@ -11,12 +11,14 @@ import {
 } from '@mui/material';
 
 import { setActiveNote } from '../../store/journal/journalSlice';
+import { clearTemporaryImages } from '../../store/temporalImages/temporalImagesSlice';
 
 export const SideBarItem = ({ title, body, date, id, imageUrls = [] }) => {
 	const dispatch = useDispatch();
 
 	const onActiveNote = () => {
 		dispatch(setActiveNote({ title, body, date, id, imageUrls }));
+		dispatch(clearTemporaryImages());
 	};
 
 	const newTitle = useMemo(() => {

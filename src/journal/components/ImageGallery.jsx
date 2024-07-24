@@ -5,6 +5,8 @@ import {
   ImageListItem,
   Checkbox,
   FormControlLabel,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,13 +14,20 @@ import { startDeletingImages } from '../../store/journal/thunks';
 
 export const ImageGallery = () => {
   const [selectedImages, setSelectedImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { active: note } = useSelector((state) => state.journal);
-  const [images, setImages] = useState(note.imageUrls);
+  const { imageUrls: temporaryImages } = useSelector(
+    (state) => state.temporaryImages
+  );
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    setImages(note.imageUrls);
-  }, [note.imageUrls]);
+    if (note.imageUrls && temporaryImages) {
+      setImages([...note.imageUrls, ...temporaryImages]);
+    }
+  }, [note.imageUrls, temporaryImages]);
 
   const handleSelectImage = (image) => {
     setSelectedImages((prev) =>
@@ -28,9 +37,17 @@ export const ImageGallery = () => {
     );
   };
 
-  const handleDeleteImages = () => {
-    dispatch(startDeletingImages(selectedImages));
-    setSelectedImages([]);
+  const handleDeleteImages = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await dispatch(startDeletingImages(selectedImages));
+      setSelectedImages([]);
+    } catch (err) {
+      setError((err && err.message) || 'Error al eliminar las imágenes');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -47,8 +64,8 @@ export const ImageGallery = () => {
             sx={{ position: 'relative', cursor: 'pointer' }}
           >
             <img
-              src={`${image}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              src={image}
+              srcSet={image}
               alt="Imagen de la nota"
               loading="lazy"
             />
@@ -80,20 +97,26 @@ export const ImageGallery = () => {
         ))}
       </ImageList>
 
+      {loading && <CircularProgress />}
+      {error && typeof error === 'string' && (
+        <Alert severity="error">{error}</Alert>
+      )}
+
       {selectedImages.length > 0 && (
         <Button
           variant="contained"
           startIcon={<DeleteForeverRoundedIcon />}
           onClick={handleDeleteImages}
-          disabled={selectedImages.length === 0}
+          disabled={selectedImages.length === 0 || loading}
           sx={{
             backgroundColor: '#de0a26',
             '&:hover': {
               backgroundColor: '#c30010',
             },
+            mt: 2,
           }}
         >
-          Eliminar
+          {loading ? 'Eliminando...' : 'Eliminar'}
         </Button>
       )}
     </div>
